@@ -8,6 +8,8 @@ public class Inputs : MonoBehaviour {
 	Vector3 rotateDir;
 	float moveSpeed = 4f;
 	float rotateSpeed = 360f;
+	public GameObject missile;
+	public Transform missileSpawn;
 
 	// Use this for initialization
 	void Start () 
@@ -43,8 +45,14 @@ public class Inputs : MonoBehaviour {
 		}
 		//Clamp the x and y positions so that you cant move out of bounds of the play area
 		Vector3 clampPos = transform.position; //new vector 3 to store our position, it updates with the position of this gameobject as it moves
-		clampPos.x = Mathf.Clamp(transform.position.x, -4f, 4f); //we can access the x of our new vector3 variable and clamp it with a min and max position
-		clampPos.y = Mathf.Clamp(transform.position.y, -4f, 4f); //we can access the y of our new vector3 variable and clamp it with a min and max position
+		clampPos.x = Mathf.Clamp(transform.position.x, -8f, 8f); //we can access the x of our new vector3 variable and clamp it with a min and max position
+		clampPos.y = Mathf.Clamp(transform.position.y, -6f, 6f); //we can access the y of our new vector3 variable and clamp it with a min and max position
 		transform.position = clampPos; //copy the clampPos Vector back onto the transform.position so that the clamp can take effect
+		
+		if(Input.GetKeyDown (KeyCode.Space)) //if the D key is held down
+		{
+			GameObject miss = Instantiate(missile, missileSpawn.transform.position, transform.rotation) as GameObject;
+			miss.rigidbody.AddForce(transform.up * 600f);
+		}
 	}
 }
