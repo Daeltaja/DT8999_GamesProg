@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Movement : MonoBehaviour {
 
-	Vector3 vertDirection;
+	public Vector3 vertDirection;
 	public float speed = 5f;
 	
 	// Use this for initialization
-	void Start () 
+	void Awake () 
 	{
 		vertDirection = new Vector3(0, speed, 0); //initiate the axis for vertDirection vector, using the speed float
 	}
