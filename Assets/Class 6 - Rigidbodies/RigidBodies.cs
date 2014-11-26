@@ -31,20 +31,11 @@ public class RigidBodies : MonoBehaviour {
 	{
 		if(rigidbody.velocity.magnitude < maxSpeed)
 		{
-			rigidbody.AddForce(transform.up * vertInput * speed, ForceMode.Force); 
+			rigidbody.AddForce(transform.up * vertInput * speed); 
 		}
 		if(rigidbody.angularVelocity.magnitude < maxRotateSpeed)
 		{
 			rigidbody.AddTorque(-transform.forward * horizInput * rotateSpeed);
-		}
-		
-		if(vertInput < 1 && vertInput > -1)
-		{
-			rigidbody.velocity = rigidbody.velocity * decellaration;
-		}
-		if(horizInput < 1 && horizInput > -1)
-		{
-			rigidbody.angularVelocity = rigidbody.angularVelocity * decellaration;
 		}
 	}
 	
@@ -60,7 +51,6 @@ public class RigidBodies : MonoBehaviour {
 		light.color = new Color(Random.Range (0.1f, 1f), Random.Range (0.1f, 1f), Random.Range (0.1f, 1f), 0);
 		ball.rigidbody.useGravity = false;
 		ball.AddComponent<Ball>();
-		ball.AddComponent<ParticleSystem>();
 		ball.rigidbody.AddForce(transform.up * 10f);
 		ball.rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
 		ball.collider.material = bouncy;
