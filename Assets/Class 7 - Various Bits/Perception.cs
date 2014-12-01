@@ -8,23 +8,21 @@ public class Perception : MonoBehaviour {
 
 	void Update () 
 	{
-		Vector3 forwardDirection = transform.TransformDirection(Vector3.right);
-		Vector3 vectorToOther = target.position - transform.position;
-		vectorToOther.Normalize();
+		Vector3 forwardDirection = transform.TransformDirection(Vector3.right); //give our player a default facing direction, updates with it's rotation
+		Vector3 vectorToOther = target.position - transform.position; 
+		vectorToOther.Normalize(); //makes the vector of length 1 (x, y, z componenet of vector each divided by the length or magnitude of the vector
+		//magnitude is caculated as the square root of x2, y2, z2, so for example (4, 3, 0) = 16 + 9 + 0 = 25. Square root of 25 is 5, which is the length or magnitude of the vector
 		
 		Debug.DrawLine (transform.position, target.position);
 		Debug.DrawLine (transform.position, transform.position + forwardDirection * 4);
 		
-	//	float dotH = Vector3.Dot (vectorToOther, forwardDirection); //for testing the non-normalized Vector
-		//Debug.Log (dotH);
-		
 		//float dotMath = (forwardDirection.x * forwardDirection.x) + (forwardDirection.y * vectorToOther.y) + (forwardDirection.z * vectorToOther.z); //this way works too!
-		float dot = Vector3.Dot(vectorToOther, forwardDirection);
+		float dot = Vector3.Dot(vectorToOther, forwardDirection); //takes two vectors and returns the dot product between them (same as calculation in line above!)
 		
 		float fov = 45f;
-		float angle = Mathf.Acos(dot) * Mathf.Rad2Deg; 
+		float angle = Mathf.Acos(dot) * Mathf.Rad2Deg; //passes DOT through Acos, which returns the angle of DOT in radians. We then * by Rad2Deg to convert it to degrees.
 		
-		if(angle < fov)
+		if(angle < fov) //if the angle of dot is less than 45 degrees, the target is in my cone of vision!
 		{
 			Debug.Log ("Spotted!");
 			target.renderer.material.color = Color.red;
@@ -33,6 +31,6 @@ public class Perception : MonoBehaviour {
 		{
 			target.renderer.material.color = Color.white;
 		}
-		//Debug.Log (angle);
+		Debug.Log (angle);
 	}
 }
