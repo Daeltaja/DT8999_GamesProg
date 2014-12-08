@@ -10,6 +10,16 @@ public class PlayerMovementNoAnim : MonoBehaviour {
 	float groundRadius = 0.2f;
 	public float jumpforce = 700f;
 	
+	public GameObject enemy;
+	EnemyStats eStats;
+	
+	void Start()
+	{
+		eStats = enemy.GetComponent<EnemyStats>();
+		eStats.TakeDamage(10);
+		
+	}
+	
 	void FixedUpdate () 
 	{
 		float move = Input.GetAxis ("Horizontal");

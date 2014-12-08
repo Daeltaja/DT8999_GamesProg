@@ -19,8 +19,7 @@ public class Bullet : MonoBehaviour {
 			if(distance < 0.5f)
 			{
 				sm.AdjustScore(5); //add 5 to our score
-				Enemy.targets.Remove (tar.transform); //remove the hit target from list
-				Destroy (tar.transform.gameObject);
+				tar.GetComponent<EnemyStats>().TakeDamage(10);
 				Destroy(gameObject);
 			}
 		}

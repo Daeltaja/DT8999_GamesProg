@@ -23,7 +23,7 @@ public class Functions : MonoBehaviour {
 		//Destroy(me); //the passed gameobject in the function called is stored in me so we can access it. In this case we are simple destroying it
 	}
 	
-	void IncreaseHealth(int adjustHealth) //local int variable
+	void IncreaseHealth(int adjustHealth) //Overload Function
 	{
 		health += adjustHealth; //our health is adjusted by the passed amount
 	}

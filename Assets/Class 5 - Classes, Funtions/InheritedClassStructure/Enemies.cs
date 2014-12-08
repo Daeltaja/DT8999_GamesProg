@@ -25,6 +25,9 @@ public class Enemies : MonoBehaviour {
 		for(int i = 0; i < 10; i++)
 		{
 			GameObject orcGO = GameObject.CreatePrimitive(PrimitiveType.Cube); //create a new empty gameobject and assign a cube to it
+			GameObject orcGO2 = GameObject.CreatePrimitive(PrimitiveType.Cube); //create a new empty gameobject and assign a cube to it
+			orcGO2.transform.parent = orcGO.transform; //add the new cube as a child of the parent
+			orcGO2.transform.position = new Vector3(0, 1, 0); //sets the position of the child cube relative to it's parent
 			Orc orc = orcGO.AddComponent<Orc>(); //create a new variable of the Orc script and add AND assign the orc script component to the variable
 			orc.CreateOrc(10, Color.blue, 31, Random.Range (.5f, 2f), 5f, 5f, transform.position.x + i*2); //access the orc script instance created above and run the CreateOrc function, passing in the various parameters it needs
 		}
