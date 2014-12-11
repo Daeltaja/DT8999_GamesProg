@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Orc : Enemies {
 
-	public void SetupOrc(float xPos, float yPos, float xSize, float ySize, float speed, Color col)
+	public void SetupOrc(float xPos, float yPos, float xSize, float ySize, float speed, Color col) //Custom public function with parameters to define properties for gameobjects, like a constructor of sorts
 	{
 		xPosition = xPos;
 		yPosition = yPos;
@@ -26,8 +26,7 @@ public class Orc : Enemies {
 	
 	void Update()
 	{
-		float vert = Input.GetAxisRaw ("Vertical");
-		transform.Translate(-transform.up * vert * moveSpeed * Time.deltaTime);
+		transform.Translate(-transform.up * moveSpeed * Time.deltaTime);
 		
 		if(transform.position.y > 6)
 		{
