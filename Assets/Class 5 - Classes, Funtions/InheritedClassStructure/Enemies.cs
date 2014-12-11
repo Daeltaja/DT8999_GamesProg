@@ -3,16 +3,11 @@ using System.Collections.Generic;
 
 public class Enemies : MonoBehaviour {
 
-	public int age;
-	public float height;
-	public float weight;
-	public float speed;
-	public float strength;
-	public int health;
-	public Color eyeColor;
-	public Color clothesColor;
-	public Transform myTransform;
-	public List<GameObject> enemies = new List<GameObject>(); //a new list to store the enemies
+	public float xPosition, yPosition;
+	public float xScale, yScale;
+	public float moveSpeed;
+	public Color color;
+	public static List<GameObject> enemies = new List<GameObject>(); //a new static list to store the enemies, we can access this from any other script by typing 'Enemies.enemies'
 	
 	protected void Start () 
 	{
@@ -20,26 +15,32 @@ public class Enemies : MonoBehaviour {
 		CreateGoblins();
 	}
 	
-	public void CreateOrcs() //Function constructor with local vars for each property to pass down into the body
+	public void CreateOrcs() 
 	{
 		for(int i = 0; i < 10; i++)
 		{
-			GameObject orcGO = GameObject.CreatePrimitive(PrimitiveType.Cube); //create a new empty gameobject and assign a cube to it
-			GameObject orcGO2 = GameObject.CreatePrimitive(PrimitiveType.Cube); //create a new empty gameobject and assign a cube to it
-			orcGO2.transform.parent = orcGO.transform; //add the new cube as a child of the parent
-			orcGO2.transform.position = new Vector3(0, 1, 0); //sets the position of the child cube relative to it's parent
-			Orc orc = orcGO.AddComponent<Orc>(); //create a new variable of the Orc script and AND assign the orc script component to the variable orc
-			orc.CreateOrc(10, Color.blue, 31, Random.Range (.5f, 2f), 5f, 5f, transform.position.x + i*2); //access the orc script instance created above and run the CreateOrc overload function, passing in the various properties it needs
+			GameObject orcGO; //create a gameobject variable, sort of like an empty box
+			orcGO = GameObject.CreatePrimitive(PrimitiveType.Cube); //assign the orcGO gameobject with a newly created Cube
+			orcGO.AddComponent<Orc>(); //Add the Orc script to the orc gameobject
+			orcGO.GetComponent<Orc>().SetupOrc(transform.position.x + i*2, 4f, 1f, 0.7f, 5f, Color.green); //a way to access and call a function in another script! Since the function has parameters, we must supply values for them
+			enemies.Add (orcGO); //add this new gameobject to the enemies list
 		}
 	}
 	
-	public void CreateGoblins() //Function constructor with local vars for each property to pass down into the body
+	public void CreateGoblins() 
 	{
 		for(int i = 0; i < 10; i++)
 		{
-			GameObject goblinGO = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			GameObject goblinGO; //create a gameobject variable, sort of like an empty box
+			goblinGO = GameObject.CreatePrimitive(PrimitiveType.Cube); //assign the goblinGO gameobject with a newly created Cube
+			GameObject goblinGO2; //create a gameobject variable, sort of like an empty box
+			goblinGO2 = GameObject.CreatePrimitive(PrimitiveType.Cube); //assign the goblinGO2 gameobject with a newly created Cube
+			goblinGO2.transform.parent = goblinGO.transform; //add the new cube as a child of the parent
+			goblinGO2.transform.localPosition = new Vector3(0, 1, 0); //sets the position of the child cube relative to it's parent
+			goblinGO.AddComponent<Goblin>();
 			Goblin goblin = goblinGO.AddComponent<Goblin>();
-			goblin.CreateGoblin(10, Color.green, 31, Random.Range (.5f, 2f), 5f, 5f, transform.position.x + i*2);
+			goblin.SetupGoblin(transform.position.x + i*2, 4f, 1f, 0.7f, 5f, Color.blue);;
+			enemies.Add(goblinGO); //add this new gameobject to the enemies list
 		}
 	}
 }

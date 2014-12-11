@@ -3,21 +3,36 @@ using System.Collections;
 
 public class Orc : Enemies {
 
-	public void CreateOrc(int orcCount, Color col, int ag, float hei, float wei, float spee, float xPos)
+	public void SetupOrc(float xPos, float yPos, float xSize, float ySize, float speed, Color col)
 	{
-		clothesColor = col;
-		age = ag;
-		weight = wei;
-		height = hei;
-		speed = spee;
-		transform.position = new Vector3(xPos, 0, 0);
-		transform.localScale = new Vector3(1, hei, 1);
-		renderer.material.color = clothesColor;
-		name = "Orc";
-	}
+		xPosition = xPos;
+		yPosition = yPos;
+		transform.position = new Vector3(xPosition, yPosition, 0);
+		
+		xScale = xSize;
+		yScale = ySize;
+		transform.localScale = new Vector3(xScale, yScale, 1);
+		
+		moveSpeed = speed;
+		
+		color = col;
+		renderer.material.color = color;
+	}	
 	
 	void Start()
 	{
-		gameObject.AddComponent<Movement>();
+		
+	}
+	
+	void Update()
+	{
+		float vert = Input.GetAxisRaw ("Vertical");
+		transform.Translate(-transform.up * vert * moveSpeed * Time.deltaTime);
+		
+		if(transform.position.y > 6)
+		{
+			Enemies.enemies.Remove(gameObject); //remove this gameobject from the static list enemies in the Enemies script
+			Destroy(gameObject);
+		}
 	}
 }

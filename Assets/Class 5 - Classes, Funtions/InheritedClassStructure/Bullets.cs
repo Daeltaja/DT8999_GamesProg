@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Bullet : MonoBehaviour {
+public class Bullets : MonoBehaviour {
 
-	ScoreManager sm;
-	
 	void Start () 
 	{
-		sm = GameObject.Find("Player").transform.GetComponent<ScoreManager>(); //store the component in a variable
+		
 	}
 	
 	void Update () 
