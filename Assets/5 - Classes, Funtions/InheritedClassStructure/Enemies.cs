@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 public class Enemies : MonoBehaviour {
-
 	public float xPosition, yPosition;
 	public float xScale, yScale;
 	public float moveSpeed;
