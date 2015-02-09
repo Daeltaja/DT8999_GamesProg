@@ -21,6 +21,7 @@ public class Parachute : MonoBehaviour {
 		{
 			if(Physics.Raycast(myRay, 4f, ground))
 			{
+			print ("ERMl");
 				OpenParachute();
 			}
 		}

@@ -2,8 +2,9 @@
 using System.Collections;
 
 public class ClickyThing : MonoBehaviour {
-
-	public GameObject bomb;
+ 
+ 	public GameObject bomb;
+ 	
 	void Update () 
 	{
 		if(Input.GetMouseButtonDown(0))
@@ -14,9 +15,8 @@ public class ClickyThing : MonoBehaviour {
 			{
 				Debug.Log ("My name is " +whatIHit.collider.gameObject.name);
 				Debug.Log (whatIHit.point); //.point returns the vector3 of where the ray intersects the collider
-				GameObject ballClone = (GameObject)Instantiate(bomb, whatIHit.point, transform.rotation); //simple instantiation
-				//ballClone.AddComponent<Rigidbody>();
-				//ballClone.rigidbody.AddForce(Vector3.up * 400f);
+			
+				GameObject ballClone = (GameObject)Instantiate(bomb, whatIHit.point, bomb.transform.rotation); //simple instantiation
 			}
 		}
 	}
