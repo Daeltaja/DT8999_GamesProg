@@ -16,14 +16,14 @@ public class SteeringBehavioursPlayer : MonoBehaviour {
 	public float mass = 1f; //weight of our agent
 	public float maxSpeed = 5f; //how fast it can travel
 	public GameObject target; //something to steer towards!
-	public bool isSeeking, isPursuing; //toggle which steering behaviour you want on in the inspector!
+	public bool seekEnabled, fleeEnabled, pursueEnabled; //toggle which steering behaviour you want on in the inspector!
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		ForceIntegrator();
 	}
-	
+
 	void ForceIntegrator()
 	{
 		Vector3 accel = force / mass; //our accell is the accumulated force / our mass, so 
@@ -35,11 +35,15 @@ public class SteeringBehavioursPlayer : MonoBehaviour {
 			transform.forward = Vector3.Normalize(velocity); //set our forward direction to use our velocity (difference between us and target) so to always point at target
 		}
 		velocity *= 0.99f; //damping! each frame set veloc to 0.99 of itself, so it can slow down 
-		if(isSeeking)
+		if(seekEnabled)
 		{
 			force += Seek(target.transform.position); //Seek is a functon that returns a Vector3, and we also pass down our targets position
 		}
-		if(isPursuing)
+		if(fleeEnabled)
+		{
+			force += Flee (target.transform.position);
+		}
+		if(pursueEnabled)
 		{
 			force += Pursue(target); //Pursue is a function that returns a Vector3, and we also pass down our target gameobject
 		}
