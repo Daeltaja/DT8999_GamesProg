@@ -16,7 +16,15 @@ public class SteeringBehavioursPlayer : MonoBehaviour {
 	public float mass = 1f; //weight of our agent
 	public float maxSpeed = 5f; //how fast it can travel
 	public GameObject target; //something to steer towards!
-	public bool seekEnabled, fleeEnabled, pursueEnabled; //toggle which steering behaviour you want on in the inspector!
+	public bool seekEnabled, fleeEnabled, pursueEnabled, arriveEnabled, pathFollowEnabled, offsetPursuitEnabled; //toggle which steering behaviour you want on in the inspector!
+	public Vector3 offsetPursuitOffset;
+	Path path = new Path();
+	
+	void Start()
+	{
+		path.CreatePath(); //access the path instance and call the CreatePath method
+		offsetPursuitOffset = transform.position; //set the offsetPursuitOffset vector to the starting position of each follower (it's easier 
+	}
 	
 	// Update is called once per frame
 	void Update () 
@@ -46,6 +54,18 @@ public class SteeringBehavioursPlayer : MonoBehaviour {
 		if(pursueEnabled)
 		{
 			force += Pursue(target); //Pursue is a function that returns a Vector3, and we also pass down our target gameobject
+		}
+		if(arriveEnabled)
+		{
+			force += Arrive (target.transform.position);
+		}
+		if(pathFollowEnabled)
+		{
+			force += PathFollow ();
+		}
+		if(offsetPursuitEnabled) 
+		{
+			force += OffsetPursuit (offsetPursuitOffset); //return the offsetpursuit force, passing in the offset
 		}
 	}
 	
@@ -78,7 +98,51 @@ public class SteeringBehavioursPlayer : MonoBehaviour {
 		Vector3 desiredVel = target.transform.position - transform.position; //same as Seek and Flee
 		float distance = desiredVel.magnitude; //find the distance between agent and target
 		float lookAhead = distance / maxSpeed; //we want to add a bit of distance onto the position we track, so we divide distance by maxSpeed ensuring it always scales as they change
-		Vector3 desPos = target.transform.position+(lookAhead * target.GetComponent<EnemySteering>().velocity); //our final vector, we tell our agent to Seek the targets position with the added lookAhead value, multiplied by the targets velocity, so that the look ahead can always be calculated in the correct direction
+		Vector3 desPos = target.transform.position+(lookAhead * target.GetComponent<SteeringBehavioursPlayer>().velocity); //our final vector, we tell our agent to Seek the targets position with the added lookAhead value, multiplied by the targets velocity, so that the look ahead can always be calculated in the correct direction
 		return Seek (desPos); //we return our vector to Seek, which then runs the normal Seek code
+	}
+	
+	Vector3 Arrive(Vector3 targetPos) //
+	{
+		Vector3 toTarget = targetPos - transform.position;
+		float distance = toTarget.magnitude;
+		if(distance <= 1f)
+		{
+			return Vector3.zero;
+		}
+		float slowingDistance = 8.0f; //at what radius from the target do we want to start slowing down
+		float decelerateTweaker = maxSpeed / 10f; //how fast or slow we want to decelerate
+		float rampedSpeed = maxSpeed * (distance / slowingDistance * decelerateTweaker); //ramped speed scales based on the distance to our target 
+		float newSpeed = Mathf.Min (rampedSpeed, maxSpeed); //returns the smaller of the two speeds
+		Vector3 desiredVel = newSpeed * toTarget.normalized; //use the newSpeed * by the normalized toTarget vector
+		return desiredVel - velocity; //return the difference between desiredVel and our velocity and apply a force to it
+	}
+	
+	Vector3 PathFollow()
+	{
+		float distance = (transform.position - path.NextWaypoint()).magnitude;
+		if(distance < 0.5f)
+		{
+			path.AdvanceWaypoint();
+		}
+		if(!path.looped && path.IsLastCheckpoint())
+		{
+			return Arrive (path.NextWaypoint());
+		}
+		else
+		{
+			return Seek (path.NextWaypoint());
+		}
+	}
+	
+	Vector3 OffsetPursuit(Vector3 offset)
+	{
+		Vector3 desiredVel = Vector3.zero;
+		desiredVel = target.transform.TransformPoint(offset);
+		float distance = (desiredVel - transform.position).magnitude;
+		float lookAhead = distance / maxSpeed; //the lookAhead is how much we should look in front of our target. The distance scales obviously, so we divide it by our maxSpeed to ensure we are looking ahead a relative amount to our distance from our target
+		desiredVel = desiredVel +(lookAhead * target.GetComponent<SteeringBehavioursPlayer>().velocity);
+		return Arrive (desiredVel);
+		
 	}
 }
