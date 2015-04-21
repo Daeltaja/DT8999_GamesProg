@@ -18,7 +18,7 @@ public class Bomb : MonoBehaviour {
 		{
 			Vector3 forceDir = hitThings[i].transform.position - this.transform.position;
 			forceDir.Normalize();
-			hitThings[i].rigidbody.AddForce(forceDir * 800f + Vector3.up * 1500f);
+			hitThings[i].GetComponent<Rigidbody>().AddForce(forceDir * 800f + Vector3.up * 1500f);
 		}
 		Destroy(this.gameObject);
 	}

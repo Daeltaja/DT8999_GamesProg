@@ -25,6 +25,6 @@ public class RoofTop : Entities {
 		transform.localScale = new Vector3(xScale, yScale, .2f);
 		
 		color = col;
-		renderer.material.color = color;
+		GetComponent<Renderer>().material.color = color;
 	}
 }

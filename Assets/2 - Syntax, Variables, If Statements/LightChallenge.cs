@@ -11,16 +11,16 @@ public class LightChallenge : MonoBehaviour {
 	{
 		if(transform.position.x < redRange) //if the spotlights x position is less than redRange
 		{
-			light.color = Color.red; //change light color to red
+			GetComponent<Light>().color = Color.red; //change light color to red
 		}
 		//if not the above and if our lights x position is greater than redRange and less than blueRange
 		else if(transform.position.x > redRange && transform.position.x < blueRange)	
 		{
-			light.color = Color.green; //change light color to green
+			GetComponent<Light>().color = Color.green; //change light color to green
 		}
 		else //if it's neither of the above
 		{
-			light.color = Color.blue; //change light color to green
+			GetComponent<Light>().color = Color.blue; //change light color to green
 		}
 	}
 }

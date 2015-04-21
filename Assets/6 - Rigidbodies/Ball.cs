@@ -7,6 +7,6 @@ public class Ball : MonoBehaviour {
 	
 	void FixedUpdate () 
 	{
-		rigidbody.velocity = rigidbody.velocity.normalized * force;
+		GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * force;
 	}
 }

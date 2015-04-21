@@ -52,7 +52,7 @@ public class Inputs : MonoBehaviour {
 		if(Input.GetKeyDown (KeyCode.Space)) //if the D key is held down
 		{
 			GameObject miss = Instantiate(missile, missileSpawn.transform.position, transform.rotation) as GameObject;
-			miss.rigidbody.AddForce(transform.up * 600f);
+			miss.GetComponent<Rigidbody>().AddForce(transform.up * 600f);
 		}
 	}
 }

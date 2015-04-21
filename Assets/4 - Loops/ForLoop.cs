@@ -20,7 +20,7 @@ public class ForLoop : MonoBehaviour {
 				box.name = "Box"+boxNum;
 				box.transform.localScale = new Vector3(1, 1, 1);
 				box.transform.position = new Vector3(xPos, yPos, 0); //use the increasing x and y values from the loop declaration
-				box.renderer.material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range (0.0f, 1.0f),Random.Range (0.0f, 1.0f), 255);
+				box.GetComponent<Renderer>().material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range (0.0f, 1.0f),Random.Range (0.0f, 1.0f), 255);
 				boxes.Add (box); //adds the new box into the list
 				Debug.Log (xPos + " / " +yPos);
 			}

@@ -21,7 +21,7 @@ public class Chimneys : Entities {
 		
 		moveSpeed = speed;
 		color = col;
-		renderer.material.color = color;
+		GetComponent<Renderer>().material.color = color;
 	}
 	
 	// Update is called once per frame

@@ -16,7 +16,7 @@ public class Orc : Enemies {
 		moveSpeed = speed;
 		
 		color = col;
-		renderer.material.color = color;
+		GetComponent<Renderer>().material.color = color;
 	}	
 	
 	void Start()

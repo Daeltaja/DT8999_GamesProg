@@ -9,8 +9,8 @@ We also have Seek, Flee and Pursue steering behaviours in here.
 To test them out, toggle on and off the isSeeking and isPursuing bools on the inspector 
 */
 
-public class SteeringBehavioursPlayer : MonoBehaviour {
-
+public class SteeringBehavioursNoFlocking : MonoBehaviour {
+	
 	public Vector3 force; //force - can be applied in any direction right?
 	public Vector3 velocity; //direction 
 	public float mass = 1f; //weight of our agent
@@ -31,7 +31,7 @@ public class SteeringBehavioursPlayer : MonoBehaviour {
 	{
 		ForceIntegrator();
 	}
-
+	
 	void ForceIntegrator()
 	{
 		Vector3 accel = force / mass; //our accell is the accumulated force / our mass, so 
@@ -98,7 +98,7 @@ public class SteeringBehavioursPlayer : MonoBehaviour {
 		Vector3 desiredVel = target.transform.position - transform.position; //same as Seek and Flee
 		float distance = desiredVel.magnitude; //find the distance between agent and target
 		float lookAhead = distance / maxSpeed; //we want to add a bit of distance onto the position we track, so we divide distance by maxSpeed ensuring it always scales as they change
-		Vector3 desPos = target.transform.position+(lookAhead * target.GetComponent<SteeringBehavioursPlayer>().velocity); //our final vector, we tell our agent to Seek the targets position with the added lookAhead value, multiplied by the targets velocity, so that the look ahead can always be calculated in the correct direction
+		Vector3 desPos = target.transform.position+(lookAhead * target.GetComponent<SteeringBehaviours>().velocity); //our final vector, we tell our agent to Seek the targets position with the added lookAhead value, multiplied by the targets velocity, so that the look ahead can always be calculated in the correct direction
 		return Seek (desPos); //we return our vector to Seek, which then runs the normal Seek code
 	}
 	
@@ -141,8 +141,7 @@ public class SteeringBehavioursPlayer : MonoBehaviour {
 		desiredVel = target.transform.TransformPoint(offset);
 		float distance = (desiredVel - transform.position).magnitude;
 		float lookAhead = distance / maxSpeed; //the lookAhead is how much we should look in front of our target. The distance scales obviously, so we divide it by our maxSpeed to ensure we are looking ahead a relative amount to our distance from our target
-		desiredVel = desiredVel +(lookAhead * target.GetComponent<SteeringBehavioursPlayer>().velocity);
+		desiredVel = desiredVel +(lookAhead * target.GetComponent<SteeringBehavioursNoFlocking>().velocity);
 		return Arrive (desiredVel);
-		
 	}
 }

@@ -11,7 +11,7 @@ public class Distances : MonoBehaviour {
 	{
 		if(target) //checks to see if we have a target assigned
 		{
-			target.gameObject.renderer.material.color = Color.red;
+			target.gameObject.GetComponent<Renderer>().material.color = Color.red;
 			myPos = transform.position; //assigns myPos with this gameobjects position
 			targetPos = target.transform.position; //assigns targetPos with targets position
 			Debug.Log (Vector3.Distance (myPos, targetPos)); //check the distance between two vectors

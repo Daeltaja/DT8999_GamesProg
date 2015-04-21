@@ -34,11 +34,11 @@ public class Variables : MonoBehaviour {
 		}
 		if(transform.position.y < 0) //if our cubes transform.y is less than 0
 		{	
-			renderer.material.color = Color.red; //set the color, which is a part of the renderer to color red
+			GetComponent<Renderer>().material.color = Color.red; //set the color, which is a part of the renderer to color red
 		}
 		else
 		{
-			renderer.material.color = Color.green; //set the color, which is a part of the renderer to color red
+			GetComponent<Renderer>().material.color = Color.green; //set the color, which is a part of the renderer to color red
 		}
 	}
 }

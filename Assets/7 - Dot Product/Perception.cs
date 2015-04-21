@@ -31,12 +31,12 @@ public class Perception : MonoBehaviour {
 		if(angle < fov) //if the angle of dot is less than 45 degrees, the target is in my cone of vision!
 		{
 			
-			renderer.material.color = Color.red;
+			GetComponent<Renderer>().material.color = Color.red;
 			return true;
 		}
 		else
 		{
-			renderer.material.color = Color.white;
+			GetComponent<Renderer>().material.color = Color.white;
 			return false;
 		}
 	}
@@ -57,11 +57,11 @@ public class Perception : MonoBehaviour {
 		if(dot > 0) //if the angle of dot is less than 0, target is in front of the player!
 		{
 			Debug.Log ("Spotted!");
-			target.renderer.material.color = Color.red;
+			target.GetComponent<Renderer>().material.color = Color.red;
 		}
 		else
 		{
-			target.renderer.material.color = Color.white;
+			target.GetComponent<Renderer>().material.color = Color.white;
 		}
 	}
 }

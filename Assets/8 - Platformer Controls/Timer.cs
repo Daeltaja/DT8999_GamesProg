@@ -20,27 +20,27 @@ public class Timer : MonoBehaviour {
 	
 	void ChangeColor()
 	{
-		renderer.material.color = Color.red;
+		GetComponent<Renderer>().material.color = Color.red;
 	}
 	
 	IEnumerator PingPongColor()
 	{
-		renderer.material.color = Color.red;
+		GetComponent<Renderer>().material.color = Color.red;
 		yield return new WaitForSeconds(.2f);
-		renderer.material.color = Color.white;
+		GetComponent<Renderer>().material.color = Color.white;
 		yield return new WaitForSeconds(.2f);
-		renderer.material.color = Color.red;
+		GetComponent<Renderer>().material.color = Color.red;
 		yield return new WaitForSeconds(.2f);
-		renderer.material.color = Color.white;
+		GetComponent<Renderer>().material.color = Color.white;
 		yield return new WaitForSeconds(.2f);
-		renderer.material.color = Color.red;
+		GetComponent<Renderer>().material.color = Color.red;
 		yield return new WaitForSeconds(.2f);
-		renderer.material.color = Color.white;
+		GetComponent<Renderer>().material.color = Color.white;
 		yield return new WaitForSeconds(.2f);
-		renderer.material.color = Color.red;
+		GetComponent<Renderer>().material.color = Color.red;
 		yield return new WaitForSeconds(.2f);
-		renderer.material.color = Color.white;
+		GetComponent<Renderer>().material.color = Color.white;
 		yield return new WaitForSeconds(.2f);
-		renderer.material.color = Color.red;
+		GetComponent<Renderer>().material.color = Color.red;
 	}
 }

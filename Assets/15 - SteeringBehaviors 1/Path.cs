@@ -11,7 +11,7 @@ public class Path : MonoBehaviour {
 	{
 		for(int i = 0; i < 10; i++)
 		{
-			waypoints.Add (Random.insideUnitSphere * 30f);
+			waypoints.Add (Random.insideUnitSphere * 150f);
 		}
 	}
 	

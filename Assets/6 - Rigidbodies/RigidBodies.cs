@@ -29,13 +29,13 @@ public class RigidBodies : MonoBehaviour {
 	
 	void FixedUpdate () 
 	{
-		if(rigidbody.velocity.magnitude < maxSpeed)
+		if(GetComponent<Rigidbody>().velocity.magnitude < maxSpeed)
 		{
-			rigidbody.AddForce(transform.up * vertInput * speed); 
+			GetComponent<Rigidbody>().AddForce(transform.up * vertInput * speed); 
 		}
-		if(rigidbody.angularVelocity.magnitude < maxRotateSpeed)
+		if(GetComponent<Rigidbody>().angularVelocity.magnitude < maxRotateSpeed)
 		{
-			rigidbody.AddTorque(-transform.forward * horizInput * rotateSpeed);
+			GetComponent<Rigidbody>().AddTorque(-transform.forward * horizInput * rotateSpeed);
 		}
 	}
 	
@@ -45,15 +45,15 @@ public class RigidBodies : MonoBehaviour {
 		ball.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 		ball.transform.position = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
 		ball.AddComponent<Rigidbody>();
-		ball.renderer.material.color = new Color(Random.Range (0.1f, 1f), Random.Range (0.1f, 1f), Random.Range (0.1f, 1f), 0);
+		ball.GetComponent<Renderer>().material.color = new Color(Random.Range (0.1f, 1f), Random.Range (0.1f, 1f), Random.Range (0.1f, 1f), 0);
 		Light light = ball.AddComponent<Light>();
 		light.range = 1f;
 		light.color = new Color(Random.Range (0.1f, 1f), Random.Range (0.1f, 1f), Random.Range (0.1f, 1f), 0);
-		ball.rigidbody.useGravity = false;
+		ball.GetComponent<Rigidbody>().useGravity = false;
 		ball.AddComponent<Ball>();
-		ball.rigidbody.AddForce(transform.up * 10f);
-		ball.rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
-		ball.collider.material = bouncy;
+		ball.GetComponent<Rigidbody>().AddForce(transform.up * 10f);
+		ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+		ball.GetComponent<Collider>().material = bouncy;
 		//InvokeRepeating("Toggle", Random.Range (0, 0.3f), Random.Range (.5f, 1f));
 	}
 }

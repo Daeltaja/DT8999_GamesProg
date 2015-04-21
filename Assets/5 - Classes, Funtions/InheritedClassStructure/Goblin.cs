@@ -16,7 +16,7 @@ public class Goblin : Enemies {
 		moveSpeed = speed;
 		
 		color = col;
-		renderer.material.color = color; //access the color property and assign the color value we passed over
+		GetComponent<Renderer>().material.color = color; //access the color property and assign the color value we passed over
 	}	
 	
 	void Start()

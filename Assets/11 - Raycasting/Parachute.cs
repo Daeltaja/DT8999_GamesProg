@@ -30,7 +30,7 @@ public class Parachute : MonoBehaviour {
 	void OpenParachute()
 	{
 		shuteOpened = true;
-		this.rigidbody.drag = paraDrag;
+		this.GetComponent<Rigidbody>().drag = paraDrag;
 		myAnimator.SetTrigger("Open");
 	}
 	
